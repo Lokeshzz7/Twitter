@@ -141,10 +141,10 @@ export const likeUnlikePost = async (req, res) => {
 export const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find()
-      .sort({ createdAt: -1 })
-      .populate({
+      .sort({ createdAt: -1 })//latest post at top
+      .populate({//get all info of that user
         path: "user",
-        select: "-password",
+        select: "-password",//remove pwd
       })
       .populate({
         path: "comments.user",

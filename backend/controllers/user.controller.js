@@ -3,8 +3,9 @@ import { v2 as cloudinary } from "cloudinary";
 import Notification from "../models/notification.model.js";
 import User from "../models/user.model.js";
 
+
 export const getUserProfile = async (req, res) => {
-  const { username } = req.params;
+  const { username } = req.params;//getting from user
   try {
     const user = await User.findOne({ username }).select("-password");
     if (!user) {
@@ -16,6 +17,7 @@ export const getUserProfile = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 export const followUnfollowUser = async (req, res) => {
   try {
@@ -51,17 +53,18 @@ export const followUnfollowUser = async (req, res) => {
   }
 };
 
+
 export const getSuggestedUsers = async (req, res) => {
   try {
     const userId = req.userId;
 
     const usersFollowedByMe = await User.findById(userId).select("following");
 
-    const users = await User.aggregate([
-      { $match: { _id: { $nin: userId } } },
-      { $sample: { size: 10 } },
+    const users = await User.aggregate([//doing in stages
+      { $match: { _id: { $nin: userId } } },//not equal to user prsnt in curr following 
+      { $sample: { size: 10 } },//10 diff users
     ]);
-
+    //select (1 to 10) to filter (1 to 6) and slice (1 to 4)
     const filteredUsers = users.filter(
       (user) => !usersFollowedByMe.following.includes(user._id)
     );
@@ -77,6 +80,7 @@ export const getSuggestedUsers = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 export const updateUser = async (req, res) => {
   const { fullName, email, username, currentPassword, newPassword, bio, link } =
@@ -108,7 +112,7 @@ export const updateUser = async (req, res) => {
           .json({ error: "Password must be at least 6 characters long" });
       }
 
-      const salt = await bcrypt.genSalt(10);
+      const salt = await bcrypt.genSalt(10);//hashing new pwd
       user.password = await bcrypt.hash(newPassword, salt);
     }
 
@@ -126,7 +130,7 @@ export const updateUser = async (req, res) => {
     if (coverImg) {
       if (user.coverImg) {
         await cloudinary.uploader.destroy(
-          user.coverImg.split("/").pop().split(".")[0]
+          user.coverImg.split("/").pop().split(".")[0]//getting only id of image present at last
         );
       }
 
@@ -134,6 +138,7 @@ export const updateUser = async (req, res) => {
       coverImg = uploadedResponse.secure_url;
     }
 
+    //updated or old one
     user.fullName = fullName || user.fullName;
     user.email = email || user.email;
     user.username = username || user.username;

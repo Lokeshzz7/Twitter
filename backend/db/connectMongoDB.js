@@ -1,4 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose";//Obj Data Model for node an d mongo
+
+
 const connectMongoDB = async () => {
     
     try {
@@ -9,4 +11,6 @@ const connectMongoDB = async () => {
         process.exit(1);
     }
 }
+
+
 export default connectMongoDB;

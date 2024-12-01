@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 
+
 export const protectRoute = async (req, res, next) => {
   try {
     const token = req.cookies.jwt;
@@ -11,7 +12,7 @@ export const protectRoute = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     if (!decoded) {
-      return res.status(401).json({ error: "Unauthorized: Invalid Token" });
+      return res.status(401).json({ error: "Unauthorized: Invalid Token" });//token expired
     }
 
     const user = await User.findById(decoded.userId).select("-password");
@@ -27,3 +28,5 @@ export const protectRoute = async (req, res, next) => {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+

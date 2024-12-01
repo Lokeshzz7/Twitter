@@ -74,6 +74,7 @@ export const signup = async (req, res) => {
   }
 };
 
+
 export const login = async (req, res) => {
     const {username,password} = req.body;
     try{
@@ -98,6 +99,7 @@ export const login = async (req, res) => {
   
 };
 
+
 export const logout = async (req, res) => {
   try{
     res.cookie("jwt", "", {
@@ -119,6 +121,7 @@ export const logout = async (req, res) => {
   }
 };
 
+
 export const getMe=async(req,res)=>{
     try{
         const user = await User.findById(req.user.id).select("-password");
@@ -137,4 +140,6 @@ export const getMe=async(req,res)=>{
         })
     }
 };
+
+
 

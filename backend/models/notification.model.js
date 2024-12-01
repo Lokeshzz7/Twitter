@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+
+
 const notificationSchema = new mongoose.Schema({
     from:{
         type: mongoose.Schema.Types.ObjectId,
@@ -17,9 +19,10 @@ const notificationSchema = new mongoose.Schema({
     },
     read:{
         type: Boolean,
-        default: false
+        default: false//user read or not checking
     }
 },{timestamp: true});
+
 
 const Notification = mongoose.model('Notification',notificationSchema);
 export default Notification;

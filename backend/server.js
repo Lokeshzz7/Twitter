@@ -1,4 +1,4 @@
-import { v2 as cloudinary } from "cloudinary";
+import { v2 as cloudinary } from "cloudinary";//v2 is a version (updating and storing image)
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import express from "express";

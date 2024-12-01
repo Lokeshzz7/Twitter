@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const userSchema = new mongoose.Schema(
   {
     username: {
@@ -24,7 +25,7 @@ const userSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId, //ref to user account stored as id
         ref: "User",
-        default: [],
+        default: [], //0 followers when signup
       },
     ],
     following: [
@@ -50,8 +51,17 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    likedPosts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+        default: [],
+      },
+    ],
   },
   { timestamps: true }
 ); //gives updated at and created at july 2021
+
 const User = mongoose.model("User", userSchema);
+
 export default User;
