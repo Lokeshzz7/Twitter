@@ -3,7 +3,6 @@ import Notification from "../models/notification.model.js";
 import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
 
-
 export const createPost = async (req, res) => {
   try {
     const { text } = req.body;
@@ -36,7 +35,6 @@ export const createPost = async (req, res) => {
   }
 };
 
-
 export const deletePost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -64,7 +62,6 @@ export const deletePost = async (req, res) => {
   }
 };
 
-
 export const commentOnPost = async (req, res) => {
   try {
     const { text } = req.body;
@@ -91,7 +88,6 @@ export const commentOnPost = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 export const likeUnlikePost = async (req, res) => {
   try {
@@ -137,14 +133,13 @@ export const likeUnlikePost = async (req, res) => {
   }
 };
 
-
 export const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find()
-      .sort({ createdAt: -1 })//latest post at top
-      .populate({//get all info of that user
+      .sort({ createdAt: -1 })
+      .populate({
         path: "user",
-        select: "-password",//remove pwd
+        select: "-password",
       })
       .populate({
         path: "comments.user",
@@ -161,7 +156,6 @@ export const getAllPosts = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 export const getLikedPosts = async (req, res) => {
   const userId = req.params.id;
@@ -186,7 +180,6 @@ export const getLikedPosts = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 export const getFollowingPosts = async (req, res) => {
   try {
@@ -213,7 +206,6 @@ export const getFollowingPosts = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
 
 export const getUserPosts = async (req, res) => {
   try {

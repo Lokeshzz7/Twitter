@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    fullname: {
+    fullName: {
       type: String,
       required: true,
     },
@@ -23,14 +23,14 @@ const userSchema = new mongoose.Schema(
     },
     followers: [
       {
-        type: mongoose.Schema.Types.ObjectId, //ref to user account stored as id
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        default: [], //0 followers when signup
+        default: [],
       },
     ],
     following: [
       {
-        type: mongoose.Schema.Types.ObjectId, //ref to user account stored as id
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         default: [],
       },
@@ -47,6 +47,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+
     link: {
       type: String,
       default: "",
@@ -60,7 +61,7 @@ const userSchema = new mongoose.Schema(
     ],
   },
   { timestamps: true }
-); //gives updated at and created at july 2021
+);
 
 const User = mongoose.model("User", userSchema);
 
