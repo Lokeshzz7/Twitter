@@ -27,6 +27,12 @@ app.use(express.json({ limit: "5mb" })); // to parse req.body
 app.use(express.urlencoded({ extended: true })); // to parse form data(urlencoded)
 
 app.use(cookieParser());
+app.get("/api/test", (req, res) => {
+  res.send({ message: "API is working!" });
+});
+app.get("/", (req, res) => {
+  res.send("Backend is running!");
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
