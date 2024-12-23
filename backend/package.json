@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "react-scripts build",
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
