@@ -11,8 +11,9 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: process.env.VITE_REACT_APP_BACKEND_BASEURL,
+        target: "https://twitter-xi-six.vercel.app",
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, "")
       },
     },
   },
